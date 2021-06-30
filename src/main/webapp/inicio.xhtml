@@ -8,30 +8,30 @@
 	<h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
 </h:head>
 <h:body>
-<!-- 	<h:outputText value="Bienvenido al Inicio"></h:outputText> -->
-	<p:dataTable id="tblEmpleados" value="#{empleadoController.empleados}"
-		var="emp" headerClass="headerTable" rowClasses="rowTable rowTableLine" >
-		<h:column>
-			<f:facet name="header">Primer Nombre</f:facet>
-			<h:outputText value="#{emp.nombre}"></h:outputText>
-		</h:column>
-		<h:column>
-			<f:facet name="header">Primer Apellido</f:facet>
-			<h:outputText value="#{emp.apellido1}"></h:outputText>
-		</h:column>
-		<h:column>
-			<f:facet name="header">Segundo Apellido</f:facet>
-			<h:outputText value="#{emp.apellido2}"></h:outputText>
-		</h:column>
-		<h:column>
-			<f:facet name="header">Puesto</f:facet>
-			<h:outputText value="#{emp.puesto}"></h:outputText>
-		</h:column>
-		<h:column>
-			<f:facet name="header">Estatus</f:facet>
-			<h:outputText value="ACTIVO" rendered="#{emp.estatus}"></h:outputText>
-			<h:outputText value="INACTIVO" rendered="#{!emp.estatus}"></h:outputText>
-		</h:column>
-	</p:dataTable>
+	<h:form>
+		<div class="card">
+			<p:dataTable id="tblEmpleados" var="empleado"
+				value="#{empleadoController.empleados}">
+				<p:column headerText="Primer Nombre">
+					<h:outputText value="#{empleado.nombre}" />
+				</p:column>
+
+				<p:column headerText="Primer Apellido">
+					<h:outputText value="#{empleado.apellido1}" />
+				</p:column>
+
+				<p:column headerText="Segundo Apellido">
+					<h:outputText value="#{empleado.apellido2}" />
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">Estado</f:facet>
+					<h:outputText value="ACTIVO" rendered="#{empleado.estatus}"></h:outputText>
+					<h:outputText value="INACTIVO" rendered="#{!empleado.estatus}"></h:outputText>
+				</p:column>
+
+			</p:dataTable>
+		</div>
+	</h:form>
 </h:body>
 </html>
