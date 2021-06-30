@@ -9,9 +9,12 @@
 </h:head>
 <h:body>
 	<h:form>
-		<div class="card">
+		<div class="ui-fluid">
 			<p:dataTable id="tblEmpleados" var="empleado"
-				value="#{empleadoController.empleados}">
+				value="#{empleadoController.empleados}"
+				reflow="false" rows="2" paginator="true"
+				stripedRows="true">
+				
 				<p:column headerText="Primer Nombre">
 					<h:outputText value="#{empleado.nombre}" />
 				</p:column>
