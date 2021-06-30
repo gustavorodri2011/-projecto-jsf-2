@@ -1,0 +1,63 @@
+@charset "ISO-8859-1";
+
+.colorText {
+	font-size: 15px;
+}
+
+.headerTable {
+	text-align: center;
+	background: none repeat scroll 0 0 #0cac8d;
+	border-bottom: 1px solid #bbbbbb;
+	padding: 16px;
+	color: #fff;
+}
+
+.rowTable {
+	text-align: center;
+	background: none repeat scroll 0 0 #ffffff;
+	border-top: 1px solid #bbbbbb;
+}
+
+.rowTableLine {
+	background: none repeat scroll 0 0 #e2e2e2;
+}
+
+.rowTableLine>td {
+	padding: 5px;
+}
+
+body .ui-panelgrid .ui-panelgrid-cell {
+	padding: 7px !important;
+}
+
+#formLogin {
+	width: 100%;
+	max-width: 600px;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+@media ( max-width : 640px) {
+	.ui-panelgrid .ui-grid-responsive .ui-grid-row {
+		border: 0 !important;
+	}
+	body .ui-panelgrid .ui-panelgrid-cell {
+		padding: 0px !important;
+		margin-bottom: 0.3rem;
+	}
+	.ui-message.ui-message-error {
+		font-size: 0.7rem;
+		margin-top: 1vh;
+		margin-bottom: 1vh;
+	}
+	body .ui-messages {
+		font-size: 0.7rem;
+	}
+	#formLogin img {
+		width: 25%;
+		margin-bottom: 0 !important;
+	}
+}

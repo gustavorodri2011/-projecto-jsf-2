@@ -1,0 +1,65 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
+	<h:outputStylesheet library="css" name="primeflex.css"></h:outputStylesheet>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</h:head>
+
+<h:body>
+	<div class="ui-fluid">
+		<h:form id="formLogin">
+			<p:messages id="messages" showDetail="false" closable="true"
+				showSummary="true" style="width: 92%;">
+				<p:effect type="pulsate" event="load" delay="300" />
+				<p:autoUpdate />
+			</p:messages>
+
+			<p:panel id="pnlLogin" header="Inicio de Sesion"
+				style="text-align: center;">
+
+				<p:graphicImage name="images/user.png" width="20%"
+					style="margin-bottom: 1rem;" />
+
+				<p:panelGrid id="pnlGridLogin" columns="1"
+					columnClasses="ui-grid-col-12,ui-grid-col-12,ui-grid-col-12,ui-grid-col-12"
+					layout="grid" styleClass="ui-panelgrid-blank ui-fluid"
+					style="border:0px none; background-color:transparent;">
+
+					<p:outputLabel for="txtUsername" value="Usuario"
+						styleClass="colorText" style="float: left;"></p:outputLabel>
+					<p:inputText id="txtUsername" value="#{loginController.username}"
+						required="true"
+						requiredMessage="El Nombre de Usuario es requerido."
+						label="Usuario">
+					</p:inputText>
+
+
+					<p:outputLabel for="txtPassword" value="Contraseña"
+						styleClass="colorText" style="float: left;">
+					</p:outputLabel>
+
+					<p:password id="txtPassword" value="#{loginController.password}"
+						required="true" requiredMessage="La Contraseña es requerida."
+						toggleMask="true" style="width: 100%;">
+					</p:password>
+
+
+					<p:outputLabel></p:outputLabel>
+					<p:commandButton icon="pi pi-check" iconPos="right"
+						styleClass="ui-button-raised ui-button-primary" value="Ingresar"
+						action="#{loginController.ingresar}" update="pnlGridLogin">
+					</p:commandButton>
+					<p:outputLabel></p:outputLabel>
+				</p:panelGrid>
+
+			</p:panel>
+
+
+		</h:form>
+	</div>
+</h:body>
+</html>
