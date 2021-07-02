@@ -7,8 +7,11 @@ import java.io.IOException;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+
+import org.gustavo.dto.UsuarioDto;
 
 /**
  * @author gustavo
@@ -19,6 +22,12 @@ public class LoginController {
 
 	private String username = "admin";
 	private String password;
+
+	/**
+	 * Bean que mantiene la informacion de la sesion
+	 */
+	@ManagedProperty("#{sessionController}")
+	private SessionController sessionController;
 
 	public String getUsername() {
 		return username;
@@ -36,12 +45,24 @@ public class LoginController {
 		this.password = password;
 	}
 
+	public SessionController getSessionController() {
+		return sessionController;
+	}
+
+	public void setSessionController(SessionController sessionController) {
+		this.sessionController = sessionController;
+	}
+
 	/*
 	 * Metodo para ingresar al sistema Login
 	 */
 	public void ingresar() {
 		if (getUsername().equalsIgnoreCase("admin") && getPassword().equalsIgnoreCase("admin")) {
 			try {
+				UsuarioDto usuarioDto=new UsuarioDto();
+				usuarioDto.setUsuario(this.username);
+				usuarioDto.setPassword(this.password);
+				this.sessionController.setUsuarioDto(usuarioDto);
 				redirectToPage("inicio.xhtml");
 			} catch (IOException e) {
 				FacesContext.getCurrentInstance().addMessage("formLogin:txtUsername",
@@ -50,9 +71,9 @@ public class LoginController {
 			}
 			System.out.println("Ingreso exitoso desde el backend");
 		} else {
-			FacesContext.getCurrentInstance().addMessage("formLogin:txtUsername", new FacesMessage(
-					FacesMessage.SEVERITY_ERROR, "El Usuario y/o la Contraseña no son válidos.", ""));
-			
+			FacesContext.getCurrentInstance().addMessage("formLogin:txtUsername",
+					new FacesMessage(FacesMessage.SEVERITY_ERROR, "El Usuario y/o la Contraseña no son válidos.", ""));
+
 			System.out.println("Fallo el usuario o la password desde el backend");
 		}
 	}

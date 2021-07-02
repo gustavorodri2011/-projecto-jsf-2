@@ -6,31 +6,84 @@
 <h:head>
 	<title>Bienvenido al Inicio</title>
 	<h:outputStylesheet library="css" name="styles.css"></h:outputStylesheet>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </h:head>
 <h:body>
+
+	<h:outputLabel
+		value="Bienvenido #{sessionController.usuarioDto.usuario} al sistema de empleados"></h:outputLabel>
 	<h:form>
-		<div class="ui-fluid">
+		<p:commandButton value="Cerrar Sesion"
+			action="#{sessionClosedController.closeSesion}"></p:commandButton>
+		<div class="ui-fluid" style="margin-left: 10%; margin-right: 10%;">
+			<h1 style="text-transform: uppercase; text-align: center;">lista
+				de empleados</h1>
+			<div id="divBotonera" style="display: inline-flex;">
+				<p:commandButton icon="pi pi-file-excel" value="XLS"
+					styleClass="p-mr-2 p-mb-2  ui-button-outlined ui-button-success">
+					<p:dataExporter type="xls" target="tblEmpleados"
+						fileName="Empleados" />
+				</p:commandButton>
+				<p:commandButton icon="pi pi-file-pdf" value="PDF"
+					styleClass="p-mr-2 p-mb-2 ui-button-outlined ui-button-danger">
+					<p:dataExporter type="pdf" target="tblEmpleados"
+						fileName="Empleados" />
+				</p:commandButton>
+				<p:commandButton icon="pi pi-file" value="XML"
+					styleClass="p-mr-2 p-mb-2 ui-button-outlined ui-button-primary"
+					ajax="false">
+					<p:dataExporter type="xml" target="tblEmpleados"
+						fileName="Empleados" />
+				</p:commandButton>
+			</div>
+
 			<p:dataTable id="tblEmpleados" var="empleado"
-				value="#{empleadoController.empleados}"
-				reflow="false" rows="2" paginator="true"
-				stripedRows="true">
-				
-				<p:column headerText="Primer Nombre">
+				value="#{empleadoController.empleados}" widgetVar="empleadosTable"
+				reflow="true" rows="5" paginator="true" stripedRows="true"
+				paginatorPosition="bottom"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				currentPageReportTemplate="{startRecord}-{endRecord} de {totalRecords} registros"
+				rowsPerPageTemplate="5,10,{ShowAll|'Todos'}"
+				emptyMessage="No se encontraron registros para mostrar"
+				filteredValue="#{empleadoController.empleadosFiltrados}"
+				sortMode="multiple">
+
+				<p:column headerText="Primer Nombre" filterBy="#{empleado.nombre}"
+					filterMatchMode="contains" sortBy="#{empleado.nombre}">
 					<h:outputText value="#{empleado.nombre}" />
 				</p:column>
 
-				<p:column headerText="Primer Apellido">
+				<p:column headerText="Primer Apellido"
+					filterBy="#{empleado.apellido1}" filterMatchMode="contains"
+					sortBy="#{empleado.apellido1}">
 					<h:outputText value="#{empleado.apellido1}" />
 				</p:column>
 
-				<p:column headerText="Segundo Apellido">
+				<p:column headerText="Segundo Apellido"
+					filterBy="#{empleado.apellido2}" filterMatchMode="contains"
+					sortBy="#{empleado.apellido2}">
 					<h:outputText value="#{empleado.apellido2}" />
 				</p:column>
 
-				<p:column>
-					<f:facet name="header">Estado</f:facet>
-					<h:outputText value="ACTIVO" rendered="#{empleado.estatus}"></h:outputText>
-					<h:outputText value="INACTIVO" rendered="#{!empleado.estatus}"></h:outputText>
+				<p:column headerText="Puesto" filterBy="#{empleado.puesto}"
+					filterMatchMode="contains" sortBy="#{empleado.puesto}">
+					<h:outputText value="#{empleado.puesto}" />
+				</p:column>
+
+				<p:column headerText="Estado" filterBy="#{empleado.estatus}">
+					<f:facet name="filter">
+						<p:selectOneMenu onchange="PF('empleadosTable').filter()"
+							styleClass="custom-filter">
+							<f:selectItem itemLabel="TODOS" itemValue="#{null}"
+								noSelectionOption="true" />
+							<f:selectItem itemLabel="ACTIVO" itemValue="true" />
+							<f:selectItem itemLabel="INACTIVO" itemValue="false" />
+						</p:selectOneMenu>
+					</f:facet>
+					<h:outputText styleClass="customer-badge status-active"
+						value="ACTIVO" rendered="#{empleado.estatus}"></h:outputText>
+					<h:outputText styleClass="customer-badge status-inactive"
+						value="INACTIVO" rendered="#{!empleado.estatus}"></h:outputText>
 				</p:column>
 
 			</p:dataTable>

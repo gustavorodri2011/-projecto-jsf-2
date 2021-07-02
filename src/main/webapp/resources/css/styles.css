@@ -40,6 +40,35 @@ body .ui-panelgrid .ui-panelgrid-cell {
 	align-items: center;
 }
 
+#divBotonera>button {
+	margin-right: 1vh;
+	margin-bottom: 1vh;
+}
+
+.customer-badge {
+	border-radius: 2px;
+	padding: .25em .5rem;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 12px;
+	letter-spacing: .3px;
+}
+
+.customer-badge.status-inactive {
+	background-color: #ff3c3c;
+	color: #ffffff;
+}
+
+.customer-badge.status-active {
+	background-color: #16af38;
+	color: #ffffff;
+}
+
+.custom-filter {
+	width: 100%;
+	box-sizing: border-box;
+}
+
 @media ( max-width : 640px) {
 	.ui-panelgrid .ui-grid-responsive .ui-grid-row {
 		border: 0 !important;
